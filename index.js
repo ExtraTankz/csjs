@@ -1,6 +1,6 @@
 const WebSocket = require("ws");
 
-const wss = new WebSocket.Server({ port: 8080, host: "0.0.0.0" });
+const wss = new WebSocket.Server({ port: 8080, host: "127.0.0.1" });
 
 wss.on("listening", () => {
   const address = wss.address();
