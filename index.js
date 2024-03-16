@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 
 // Update the WebSocket server URL with the appropriate protocol and port provided by cyclic.sh
-const wsServerUrl = "wss://websocket.cyclic.sh:8080"; // Update with your cyclic.sh URL and port
+const wsServerUrl = "wss://websocket.cyclic.app:8080"; // Update with your cyclic.sh URL and port
 
 const wss = new WebSocket.Server({ noServer: true });
 
