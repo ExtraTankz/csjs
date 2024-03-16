@@ -1,10 +1,9 @@
 const WebSocket = require("ws");
 
-const wss = new WebSocket.Server({ port: 8080, host: "0.0.0.0" });
+const wss = new WebSocket.Server({ noServer: true });
 
 wss.on("listening", () => {
-  const address = wss.address();
-  console.log(`WebSocket server started at ws://${address.address}:${address.port}`);
+  console.log(`WebSocket server started`);
 });
 
 let connectedUsersCount = 0;
@@ -69,3 +68,19 @@ function broadcastCursorPosition(ws, x, y) {
     }
   });
 }
+
+// In case cyclic.sh requires a custom HTTP server, you need to create an HTTP server and upgrade the connection to WebSocket
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+    // You may handle HTTP requests here if necessary
+});
+
+server.on('upgrade', (request, socket, head) => {
+    wss.handleUpgrade(request, socket, head, (ws) => {
+        wss.emit('connection', ws, request);
+    });
+});
+
+// Start the HTTP server
+server.listen(process.env.PORT || 8080); // Use the provided port by cyclic.sh or fallback to port 8080 if not provided
